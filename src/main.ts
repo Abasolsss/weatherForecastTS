@@ -59,6 +59,13 @@ async function cityFunction(url: string): Promise<countryCityName> {
       optionArray.forEach((el) => {
         selectCountry.appendChild(el);
       });
+
+      if (selectCountry instanceof HTMLSelectElement) {
+        selectCountry.addEventListener("change", () => {
+          const tests = selectCountry.value;
+          console.log(tests);
+        });
+      }
     }
 
     return {
