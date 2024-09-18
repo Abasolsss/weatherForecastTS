@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 
+/* for svg */
+/* https://undraw.co/search */
 body {
   font-family: "Nunito Sans", sans-serif;
   font-optical-sizing: auto;
@@ -7,7 +9,7 @@ body {
   font-style: normal;
   font-variation-settings: "wdth" 100, "YTLC" 500;
   background: #ffffff;
-  width: 100;
+  margin: 0;
 }
 .header {
   display: flex;
@@ -22,22 +24,76 @@ body {
 }
 .navbar ul li {
   display: inline-block;
+  margin-inline: 1rem;
+  font-weight: bold;
 }
 
+.wee {
+  font-size: 4rem;
+  margin: 0;
+}
 .navbar ul li a {
   text-decoration: none;
+  font-size: 1.25rem;
+  color: #000000;
+}
+
+.footer {
+  padding-inline: 1rem;
 }
 
 .mainDiv {
-  display: inline-grid;
-  grid-template-columns: repeat(2, 50%);
-  text-align: center;
+  display: grid;
+  /* align-items: center; */
+  grid-template-columns: 55% 45%;
+  /* text-align: center; */
   width: 100%;
+  height: 100%;
 }
 
-.picture {
-  background-color: yellow;
+.picture img {
+  width: 100%;
+  height: 100%;
 }
-.mainDiv {
-  background-color: antiquewhite;
+.modalSection {
+  /* background-color: aqua; */
+  padding-block: 2rem;
+}
+.modalSection p {
+  font-size: 2rem;
+}
+
+header {
+  padding-inline: 1rem;
+}
+
+.test {
+  margin-block: 5rem;
+  padding-block: 5rem;
+  padding-inline: 1rem;
+}
+
+.checkWeather {
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  color: #000;
+  background: #fff;
+  line-height: 30px;
+  border-radius: 40px;
+  padding: 20px;
+  font-size: 30px;
+  font-weight: 600;
+  box-shadow: rgb(255, 198, 0) -2px -2px 0px 2px,
+    rgb(246, 84, 174) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
+  transition: all 0.2s;
+}
+
+.checkWeather:hover {
+  box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px,
+    rgb(255, 198, 0) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
+  transform: scale(1.01);
 }
