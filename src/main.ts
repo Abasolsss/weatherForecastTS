@@ -64,6 +64,12 @@ async function cityFunction(url: string): Promise<countryCityName> {
         selectCountry.addEventListener("change", () => {
           const tests = selectCountry.value;
           console.log(tests);
+
+          const inputText = document.getElementById(
+            "inputText"
+          ) as HTMLInputElement;
+
+          inputText.disabled = false;
         });
       }
     }
