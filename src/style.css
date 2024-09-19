@@ -16,7 +16,14 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h5 {
+  margin:0;
+}
 .navbar ul {
   list-style-type: none;
   padding: 0;
@@ -73,13 +80,13 @@ header {
   padding-inline: 1rem;
 }
 
-.checkWeather {
+.checkWeatherModal {
   display: inline-block;
   outline: 0;
   border: 0;
   cursor: pointer;
   text-decoration: none;
-  position: relative;
+  /* position: relative; */
   color: #000;
   background: #fff;
   line-height: 30px;
@@ -92,8 +99,110 @@ header {
   transition: all 0.2s;
 }
 
-.checkWeather:hover {
+.checkWeatherModal:hover {
   box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px,
     rgb(255, 198, 0) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
-  transform: scale(1.01);
+  /* transform: scale(1.01); */
+}
+
+.modalShow {
+  background:rgba(1,1,1,0.5);
+  position: absolute;
+  right: 0;
+  left:0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0;
+}
+
+.modalHide {
+display: none;
+}
+
+.modalHandler {
+    padding-inline: 2rem;
+    background: #ffffff;
+    border-radius: 0.625rem;
+    position: relative;
+    display: flex;
+    bottom: 5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 4rem;
+}
+
+.modalClose {
+  width: 35px;
+  cursor: pointer;
+}
+.modalClose span {
+  height: 0.188rem;
+  background-color: #000;
+  display: block;
+  margin: 0.313rem;
+}
+.modalClose span:nth-child(1){
+  transform: translateY(7px) translateX(1px) rotate(47deg);
+}
+
+.modalClose span:nth-child(2){
+  transform: translateY(-1px) translateX(1px) rotate(136deg);
+}
+
+.modalHeader {
+  padding-block: 2rem;
+}
+
+#inputText {
+  border-radius: 5px;
+  background: rgb(249, 250, 250);
+  border: 1px solid rgb(181, 189, 196);
+  font-size: 16px;
+  /* height: 40px; */
+  line-height: 24px;
+  padding: 7px 8px;
+  color: rgb(8, 9, 10);
+  box-shadow: none;
+  
+}
+
+#inputText:focus{
+  background-color: #fff;
+  border-color: #3b49df;
+  box-shadow: 1px 1px 0 #3b49df;
+}
+
+.checkWeatherBtn {
+  cursor: pointer;
+  outline: 0;
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.newWeather {
+  padding-block: 0.625rem;
+  padding-inline: 0.625rem;
+}
+
+.checkWeatherBtn:hover {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+#selectCountry {
+  padding-block: 0.625rem;
+
 }

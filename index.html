@@ -27,14 +27,27 @@
     </header>
 
     <main>
-      <!-- <section>
-
-        <select name="" id="selectCountry">
-          <option selected="true" disabled>Select Country</option>
-        </select>
-
-        <input type="text" name="" id="inputText" disabled />
-      </section> -->
+      <section class="modalHide">
+          <div class="modalHandler">
+            <div class="modalHeader">
+                <div class="modalName">
+                  <h3>Check Weather</h3>
+                </div>
+                <div class="modalClose">
+                      <span></span>
+                      <span></span>
+                </div>
+            </div>
+            
+            <div class="modalBody">
+              <select name="" id="selectCountry">
+                <option selected="true" disabled>Select Country</option>
+              </select>
+              <input type="text" name="" id="inputText" disabled placeholder="Select a country first">
+              <button disabled class="newWeather">Check Weather</button>
+            </div>
+          </div>
+      </section>
       <!-- main page -->
       <section class="test">
         <div class="mainDiv">
@@ -46,7 +59,7 @@
               quos earum?
             </p>
 
-            <button class="checkWeather">Check weather now</button>
+            <button class="checkWeatherModal">Check weather now</button>
           </div>
 
           <div class="picture">
@@ -55,7 +68,7 @@
         </div>
       </section>
 
-      <footer class="footer">Created by abasol</footer>
+      <footer class="footer">Created by daheck</footer>
     </main>
   </body>
 </html>

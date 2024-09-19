@@ -7,6 +7,7 @@ const APIKEY: string = "60f06bb755213c4c8e5887d8f7b59046";
 
 const weatherLink: string = `https://countriesnow.space/api/v0.1/countries`;
 
+
 interface weatherObject {
   test: string;
   err: string;
@@ -15,6 +16,7 @@ interface weatherObject {
 interface countryCityName {
   country: string;
   city: string;
+  selector: HTMLElement | null
 }
 
 async function weatherFunction(url: string): Promise<weatherObject> {
@@ -61,6 +63,7 @@ async function cityFunction(url: string): Promise<countryCityName> {
       });
 
       if (selectCountry instanceof HTMLSelectElement) {
+        const newWeather: HTMLButtonElement | null = document.querySelector(".newWeather")
         selectCountry.addEventListener("change", () => {
           const tests = selectCountry.value;
           console.log(tests);
@@ -70,21 +73,47 @@ async function cityFunction(url: string): Promise<countryCityName> {
           ) as HTMLInputElement;
 
           inputText.disabled = false;
+          inputText.setAttribute("placeholder", "Enter City")
+          if(newWeather) {
+            newWeather.disabled = false;
+            newWeather.classList.remove("disabledBtn")
+            newWeather.classList.add("checkWeatherBtn")
+
+            newWeather.addEventListener("click", () => {
+              console.log("Hello world")
+            })
+          }
         });
       }
     }
-
     return {
       country: "Test",
       city: "String",
+      selector: selectCountry
     };
   } catch {
     return {
       country: "Test",
       city: "String",
+      selector: null
     };
   }
 }
 cityFunction(weatherLink);
 
-//inputs
+
+//Show modal
+const modalBtn: HTMLButtonElement | null = document.querySelector(".checkWeatherModal")
+
+const modalClose: HTMLDivElement | null = document.querySelector(".modalClose")
+const modalDiv: HTMLDivElement | null = document.querySelector(".modalHide")
+
+modalBtn?.addEventListener("click", () => {
+    modalDiv?.classList.remove("modalHide")
+    modalDiv?.classList.add("modalShow")
+})
+
+modalClose?.addEventListener("click",() => {
+  modalDiv?.classList.remove("modalShow")
+    modalDiv?.classList.add("modalHide")
+})
