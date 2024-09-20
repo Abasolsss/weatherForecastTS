@@ -2,6 +2,15 @@
 // https://documenter.getpostman.com/view/1134062/T1LJjU52
 const newWeather: HTMLButtonElement | null = document.querySelector(".newWeather")
 
+
+const selectCountry: HTMLElement | null =
+document.getElementById("selectCountry");
+
+
+const inputText = document.getElementById(
+  "inputText"
+) as HTMLInputElement;
+
 interface weatherObject {
   resp: string;
   mess: string;
@@ -48,14 +57,13 @@ async function cityFunction(): Promise<countryCityName> {
 }
 
 
-async function weatherFunction(): Promise<weatherObject> {
+async function weatherFunction(city:string,country:string): Promise<weatherObject> {
   try {
-
+   
     const callBack = await cityFunction()
     const data = callBack.data
 
-    const selectCountry: HTMLElement | null =
-    document.getElementById("selectCountry");
+
 
   let optionArray: HTMLOptionElement[] = [];
 
@@ -75,36 +83,33 @@ async function weatherFunction(): Promise<weatherObject> {
     });
   }
 
-  let weatherLinks: string[] = []
-  
-  if (selectCountry instanceof HTMLSelectElement) {
 
+  let weatherLinks: string[] = []
+  if (selectCountry instanceof HTMLSelectElement) {
+ 
     selectCountry.addEventListener("change", () => {
-  
       newWeather?.classList.add("checkWeatherBtn")
       newWeather?.classList.remove("newWeather")
       if(newWeather) {
         newWeather.disabled = false;
       }
-      const isoVal:string = selectCountry.value;
-      const inputText = document.getElementById(
-        "inputText"
-      ) as HTMLInputElement;
-
       inputText.disabled = false;
       inputText.setAttribute("placeholder", "Enter City")
 
     });
   }
+
   const APIKEY: string = "60f06bb755213c4c8e5887d8f7b59046";
 
-  const weatherLink: string
-  = `https://api.openweathermap.org/data/2.5/weather?q=cebu&appid=${APIKEY}`;
+  // const weatherLink: string
+  // = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}`;
 
-  const test = fetch(weatherLink);
+  const WeatherLink: string = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${APIKEY}`
+
+
+  const test = fetch(WeatherLink);
   const result = await test;
   const results = await result.json();
-  // console.log(results);
       return {
       resp: results,
       mess: "Success Result"
@@ -117,6 +122,7 @@ async function weatherFunction(): Promise<weatherObject> {
   }
 }
 
+// to run the async function
 weatherFunction()
 
 
@@ -124,9 +130,18 @@ const checkWeatherBtn: HTMLElement | null = document.getElementById("showWeather
 
 if(checkWeatherBtn instanceof HTMLButtonElement) {
   const newBtn = checkWeatherBtn
-  const newWeathers = await weatherFunction()
-  newBtn.addEventListener("click", () => {
-    console.log(newWeathers)
+  newBtn.addEventListener("click", async () => {
+    const test:string = inputText.value
+  
+    if(selectCountry instanceof HTMLSelectElement) {
+      const selectCountryISO: HTMLSelectElement = selectCountry
+      const selectCountryISOVal: string = selectCountryISO.value
+      const tests = await weatherFunction(test,selectCountryISOVal)
+
+      console.log(tests)
+    } else {
+      console.log(false)
+    }
   })
 } else {
   console.log("This is not button", false)
