@@ -7,6 +7,10 @@ const selectCountry: HTMLElement | null =
 document.getElementById("selectCountry");
 
 
+const loadingDiv: HTMLDivElement | null = document.querySelector(".loadingDivHide")
+
+
+
 const inputText = document.getElementById(
   "inputText"
 ) as HTMLInputElement;
@@ -63,8 +67,6 @@ async function weatherFunction(city:string,country:string): Promise<weatherObjec
     const callBack = await cityFunction()
     const data = callBack.data
 
-
-
   let optionArray: HTMLOptionElement[] = [];
 
   if (selectCountry) {
@@ -84,7 +86,6 @@ async function weatherFunction(city:string,country:string): Promise<weatherObjec
   }
 
 
-  let weatherLinks: string[] = []
   if (selectCountry instanceof HTMLSelectElement) {
  
     selectCountry.addEventListener("change", () => {
@@ -101,8 +102,6 @@ async function weatherFunction(city:string,country:string): Promise<weatherObjec
 
   const APIKEY: string = "60f06bb755213c4c8e5887d8f7b59046";
 
-  // const weatherLink: string
-  // = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKEY}`;
 
   const WeatherLink: string = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${APIKEY}`
 
@@ -125,19 +124,44 @@ async function weatherFunction(city:string,country:string): Promise<weatherObjec
 // to run the async function
 weatherFunction()
 
+const loadingMessage: string[] = ["Loading weather", "Please wait", "Almost Done"]
 
-const checkWeatherBtn: HTMLElement | null = document.getElementById("showWeather")
+const loadingEl: HTMLElement | null  = document.querySelector(".loadingMessage")
+
+const checkWeatherBtn: HTMLElement | null = document.getElementById
+("showWeather")
+
+const showResult:HTMLDivElement | null = document.querySelector(".showResult")
 
 if(checkWeatherBtn instanceof HTMLButtonElement) {
   const newBtn = checkWeatherBtn
   newBtn.addEventListener("click", async () => {
     const test:string = inputText.value
-  
+    loadingDiv?.classList.remove("loadingDivHide")
+    loadingDiv?.classList.add("loadingDiv")
+    modalDiv?.classList.remove("modalShow")
+    modalDiv?.classList.add("modalHide")
+
+    let init:number = 0
+
+
+  setInterval(() => {
+    if(init !== loadingMessage.length) {
+      if(loadingEl) {
+        loadingEl.textContent = loadingMessage[init++]
+      }
+    } else {
+      loadingDiv?.classList.remove("loadingDiv")
+      loadingDiv?.classList.add("loadingDivHide")
+      //show the date
+      // show the city
+      // show the current weather
+    }
+  },1500)
     if(selectCountry instanceof HTMLSelectElement) {
       const selectCountryISO: HTMLSelectElement = selectCountry
       const selectCountryISOVal: string = selectCountryISO.value
       const tests = await weatherFunction(test,selectCountryISOVal)
-
       console.log(tests)
     } else {
       console.log(false)

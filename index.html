@@ -9,6 +9,10 @@
     <title>Weather Check Application</title>
   </head>
   <body>
+    <div class="loadingDivHide">
+      <span class="loader"></span>
+      <h1 class="loadingMessage">Loading..</h1>
+    </div>
     <header>
       <nav class="header">
         <div class="logo">
@@ -38,7 +42,7 @@
                       <span></span>
                 </div>
             </div>
-            
+    
             <div class="modalBody">
               <select name="" id="selectCountry">
                 <option selected="true" disabled>Select Country</option>
@@ -58,7 +62,6 @@
               commodi impedit nobis quidem illum, quis distinctio cumque dolorum
               quos earum?
             </p>
-
             <button class="checkWeatherModal">Check weather now</button>
           </div>
 
@@ -67,6 +70,25 @@
           </div>
         </div>
       </section>
+
+      <section>
+          <div class="showResult">
+              <div class="resultHandler">
+                <div class="resultFirstDiv">
+                  <span>Results for: Location Here</span>
+                  <span>Weather Logo</span>
+                </div>
+                
+                <div class="resultSecondDiv">
+                  <span>Weather</span>
+                  <span>Day Time:</span>
+                  <span>Weather status</span>
+                </div>
+              </div>
+          </div>
+      </section>
+      
+   
 
       <footer class="footer">Created by daheck</footer>
     </main>
