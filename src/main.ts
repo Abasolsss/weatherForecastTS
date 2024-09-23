@@ -131,7 +131,8 @@ const loadingEl: HTMLElement | null  = document.querySelector(".loadingMessage")
 const checkWeatherBtn: HTMLElement | null = document.getElementById
 ("showWeather")
 
-const showResult:HTMLDivElement | null = document.querySelector(".showResult")
+const showResultId: HTMLElement | null = document.getElementById("resultId")
+
 
 if(checkWeatherBtn instanceof HTMLButtonElement) {
   const newBtn = checkWeatherBtn
@@ -142,10 +143,12 @@ if(checkWeatherBtn instanceof HTMLButtonElement) {
     modalDiv?.classList.remove("modalShow")
     modalDiv?.classList.add("modalHide")
 
+
+    let testNumber: number[] = []
     let init:number = 0
-
-
-  setInterval(() => {
+   
+  const resultFunc = () => {
+    
     if(init !== loadingMessage.length) {
       if(loadingEl) {
         loadingEl.textContent = loadingMessage[init++]
@@ -153,11 +156,42 @@ if(checkWeatherBtn instanceof HTMLButtonElement) {
     } else {
       loadingDiv?.classList.remove("loadingDiv")
       loadingDiv?.classList.add("loadingDivHide")
-      //show the date
-      // show the city
-      // show the current weather
+      showResultId?.classList.remove("hideResult")
+      showResultId?.classList.add("showResult")
+      if(showResultId) {
+        showResultId.innerHTML = 
+        `
+         <div class="resultHandler">
+                <div class="resultFirstDiv">
+                  <span>Results for: Location Here</span>
+                  <span>Weather Logo</span>
+                </div>
+                
+                <div class="resultSecondDiv">
+                  <span>Weather</span>
+                  <span>Day Time:</span>
+                  <span>Weather status</span>
+                </div>
+              </div>
+        `
+      }
     }
-  },1500)
+    return init
+  } 
+
+  const myInterval = setInterval(resultFunc,1500)
+
+  setTimeout(() => {
+    if(myInterval > 0) {
+      clearInterval(myInterval)
+    } else {
+      console.error("Failed to clear the interval")
+    }
+  },7000)
+  
+
+
+
     if(selectCountry instanceof HTMLSelectElement) {
       const selectCountryISO: HTMLSelectElement = selectCountry
       const selectCountryISOVal: string = selectCountryISO.value
