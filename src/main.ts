@@ -12,8 +12,52 @@ const loadingDiv: HTMLDivElement | null =
 const inputText = document.getElementById("inputText") as HTMLInputElement;
 
 interface weatherObject {
-  resp: string;
   mess: string;
+  resp: {
+    base: string;
+    clouds: {
+      all: number;
+    }
+    cod: number;
+    message: string;
+    coord: {
+      lat: number,
+      lon: number
+    }
+    dt: number,
+    id: number,
+    main: {
+      feels_like: number,
+      grnd_level: number,
+      humidity: number,
+      pressure: number,
+      sea_level: number,
+      temp: number,
+      temp_max: number,
+      temp_min: number
+    }
+    name: string;
+    sys: {
+      country: string,
+      sunrise: number,
+      sunset: number
+    }
+    timezone: number;
+    visibility: number;
+    weather: [
+      {
+        description: string,
+        icon: string,
+        main: string
+      }
+    ]
+    wind: {
+      deg: number,
+      gust: number,
+      speed: number
+    } 
+  };
+error: string
 }
 
 interface countryCityName {
@@ -69,7 +113,6 @@ async function weatherFunction(
         const countryName: string = data.data[i].country;
         const countryISO: string = data.data[i].iso2;
         const optionSelect = document.createElement("option");
-
         optionSelect.setAttribute("value", countryISO);
         optionSelect.textContent = countryName;
         optionArray.push(optionSelect);
@@ -101,14 +144,59 @@ async function weatherFunction(
     const result = await test;
     const results = await result.json();
     return {
-      resp: results,
       mess: "Success Result",
+      resp: results,
+      error: "No Error"
     };
   } catch {
     return {
-      resp: "Failed",
       mess: "Failed Result",
-    };
+  resp: {
+    base: "",
+    clouds: {
+      all: 0,
+    },
+    cod: 0,
+    message: "",
+    coord: {
+      lat: 0,
+      lon: 0
+    },
+    dt: 0,
+    id: 0,
+    main: {
+      feels_like: 0,
+      grnd_level: 0,
+      humidity: 0,
+      pressure: 0,
+      sea_level: 0,
+      temp: 0,
+      temp_max: 0,
+      temp_min: 0
+    },
+    name: "",
+    sys: {
+      country: "",
+      sunrise: 0,
+      sunset: 0
+    },
+    timezone: 0,
+    visibility: 0,
+    weather: [
+      {
+        description: "",
+        icon: "",
+        main: ""
+      }
+    ],
+    wind: {
+      deg: 0,
+      gust: 0,
+      speed: 0
+    },
+  },
+error: ""
+    }
   }
 }
 
@@ -153,37 +241,62 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
 
     const myInterval = setInterval(resultFunc, 1500);
 
-    interface returnVal {
-      mess: string;
-      resp: {
-        base: string;
-      };
-    }
-
-    const dataVal: returnVal[] = [];
+    const dataVal: weatherObject[] = [];
 
     setTimeout(() => {
       if (myInterval > 0) {
-        console.log(dataVal[0].mess);
-        console.log(dataVal[0].resp.base);
+        const dataValue: weatherObject = dataVal[0]
+        
+        let cod: number = dataValue.resp.cod
+        let codString: string = cod.toLocaleString() 
+        console.log(codString)
+        // const codTest = codString === "404" ? true : false
         clearInterval(myInterval);
         showResultId?.classList.remove("hideResult");
         showResultId?.classList.add("showResult");
-        if (showResultId) {
-          showResultId.innerHTML = `
-         <div class="resultHandler">
-                <div class="resultFirstDiv">
-                  <span>Results for: Location Here</span>
-                  <span>Weather Logo</span>
+        if(codString === "404") {
+        const errorMessage: string = dataValue.resp.message
+          if(showResultId) {
+            if (showResultId) {
+              showResultId.innerHTML = `
+           <div class="resultHandler">
+              <h1 class="locationName">${cod} ${errorMessage}</h1>
                 </div>
-                
-                <div class="resultSecondDiv">
-                  <span>Weather</span>
-                  <span>Day Time:</span>
-                  <span>Weather status</span>
+            `;
+            }
+          }
+        } else {
+          const humidity: number = dataValue.resp.main.humidity
+          const wKMH: number = dataValue.resp.wind.speed
+          const description: string = dataValue.resp.weather[0].description
+          const cityName: string = dataValue.resp.name
+          const countryISO: string = dataValue.resp.sys.country
+          if (showResultId) {
+            showResultId.innerHTML = `
+         <div class="resultHandler">
+            <h1 class="locationName">${countryISO},${cityName}</h1>
+                <div class="resultsDiv">
+                    <div class="weatherDetails">
+                        <div class="weatherLogo">
+                            <img src="" alt="" srcset="">
+                            <h1>Images</h1>
+                        </div>
+                        <div class="weatherCelcius">
+                            <h1>31C</h1>
+                        </div>
+                        <div class="weatherWindDetails">
+                   
+                            <h5>Humidity: ${humidity}%</h5>
+                            <h5>Wind: ${wKMH}%</h5>
+                        </div>
+                    </div>
+                    <div class="weatherSecDetails">
+                      <h1>Weather:${description}</h1>
+                  </div>
                 </div>
               </div>
-        `;
+          `;
+          }
         }
       } else {
         console.error("Failed to clear the interval");
