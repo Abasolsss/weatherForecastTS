@@ -71,6 +71,9 @@ const modalBtn: HTMLButtonElement | null =
 const modalClose: HTMLDivElement | null = document.querySelector(".modalClose");
 const modalDiv: HTMLDivElement | null = document.querySelector(".modalHide");
 
+
+
+
 modalBtn?.addEventListener("click", () => {
   modalDiv?.classList.remove("modalHide");
   modalDiv?.classList.add("modalShow");
@@ -260,8 +263,17 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
             if (showResultId) {
               showResultId.innerHTML = `
            <div class="resultHandler">
-              <h1 class="locationName">${cod} ${errorMessage}</h1>
+
+               <div class="resultHeader">
+                    <div class="placeName">
+                       <h1 class="locationName">${cod} ${errorMessage}</h1>
+                  </div>
+                <div class="resultClose">
+                      <span></span>
+                      <span></span>
                 </div>
+                </div>
+            </div>
             `;
             }
           }
@@ -273,30 +285,45 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
           const countryISO: string = dataValue.resp.sys.country
           if (showResultId) {
             showResultId.innerHTML = `
-         <div class="resultHandler">
-            <h1 class="locationName">${countryISO},${cityName}</h1>
-                <div class="resultsDiv">
-                    <div class="weatherDetails">
-                        <div class="weatherLogo">
-                            <img src="" alt="" srcset="">
-                            <h1>Images</h1>
-                        </div>
-                        <div class="weatherCelcius">
-                            <h1>31C</h1>
-                        </div>
-                        <div class="weatherWindDetails">
-                   
-                            <h5>Humidity: ${humidity}%</h5>
-                            <h5>Wind: ${wKMH}%</h5>
-                        </div>
-                    </div>
-                    <div class="weatherSecDetails">
-                      <h1>Weather:${description}</h1>
+               <div class="resultHandler">
+                <div class="resultHeader">
+                    <div class="placeName">
+                      <h1 class="locationName">${countryISO},${cityName}</h1>
                   </div>
+                <div class="resultClose">
+                      <span></span>
+                      <span></span>
+                </div>
+                </div>
+              <div class="resultsDiv">
+                  <div class="weatherDetails">
+                      <div class="weatherLogo">
+                          <img src="" alt="" srcset="">
+                          <h1>Images</h1>
+                      </div>
+                      <div class="weatherCelcius">
+                   
+                      </div>
+                      <div class="weatherWindDetails">
+                          <h5>Humidity: ${humidity}</h5>
+                          <h5>Wind: ${wKMH}</h5>
+                      </div>
+                  </div>
+                  <div class="weatherSecDetails">
+                    <h1>Weather</h1>
+                    <h1>Friday: 4:00 PM</h1>
+                    <h1>${description}</h1>
                 </div>
               </div>
+            </div>
           `;
           }
+          const resultClose: HTMLDivElement | null = document.querySelector(".resultClose")
+
+          resultClose?.addEventListener("click",() => {
+            showResultId?.classList.remove("showResult")
+            showResultId?.classList.add("hideResult")
+          })
         }
       } else {
         console.error("Failed to clear the interval");

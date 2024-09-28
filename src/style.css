@@ -198,9 +198,22 @@ display: none;
   cursor: pointer;
 }
 
+.resultHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-block: 0.625rem;
+  padding-block: 0.625rem;
+}
+
+.resultHeader h1 {
+  margin: 0;
+}
+
+
 .locationName {
   text-align: center;
 }
+
 .modalClose span {
   height: 0.188rem;
   background-color: #000;
@@ -214,6 +227,30 @@ display: none;
 .modalClose span:nth-child(2){
   transform: translateY(-1px) translateX(1px) rotate(136deg);
 }
+
+
+.resultClose {
+  width: 35px;
+  cursor: pointer;
+}
+
+.resultClose span {
+  height: 0.188rem;
+  background-color: #000;
+  display: block;
+  margin: 0.313rem;
+}
+.resultClose span:nth-child(1){
+  transform: translateY(7px) translateX(1px) rotate(47deg);
+}
+
+.resultClose span:nth-child(2){
+  transform: translateY(-1px) translateX(1px) rotate(136deg);
+}
+
+
+
+
 
 .modalHeader {
   padding-block: 2rem;
