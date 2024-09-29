@@ -10,9 +10,10 @@ body {
   font-variation-settings: "wdth" 100, "YTLC" 500;
   background: #ffffff;
   margin: 0;
-  height: auto;
-  width: 100%;
+  padding:0;  
 }
+
+ 
 .header {
   display: flex;
   justify-content: space-between;
@@ -113,6 +114,10 @@ header {
   align-items: center;
 }
 
+.weatherSecDetails {
+  text-align: end;
+}
+
 .weatherDetails h1 {
   margin:0;
 }
@@ -123,6 +128,7 @@ header {
 .weatherDetails  > div {
   display: inline-block;
   padding-inline: 0.625rem;
+  text-align: end;
 }
 .hideResult {
   display:none;
@@ -198,6 +204,12 @@ display: none;
   cursor: pointer;
 }
 
+h3 {
+  margin: 0;
+}
+
+
+
 .resultHeader {
   display: flex;
   justify-content: space-between;
@@ -207,6 +219,7 @@ display: none;
 
 .resultHeader h1 {
   margin: 0;
+  display: inline-block;
 }
 
 
@@ -290,6 +303,18 @@ display: none;
   font-size: 16px;
   border-radius: .25rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.cel {
+
+  position: relative;
+}
+.cel::before {
+  content: "°C";
+  font-size: 15px;
+  display: block;
+  position: absolute;
+  right:-1rem;
 }
 
 .newWeather {

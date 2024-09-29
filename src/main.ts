@@ -140,7 +140,7 @@ async function weatherFunction(
 
     const APIKEY: string = "60f06bb755213c4c8e5887d8f7b59046";
 
-    const WeatherLink: string = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${APIKEY}`;
+    const WeatherLink: string = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${APIKEY}&units=metric`;
 
     // console.log(WeatherLink);
     const test = fetch(WeatherLink);
@@ -227,7 +227,9 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
     loadingDiv?.classList.add("loadingDiv");
     modalDiv?.classList.remove("modalShow");
     modalDiv?.classList.add("modalHide");
-
+      inputText.value = ""
+    const selectElement = selectCountry as HTMLSelectElement
+    selectElement.selectedIndex = 0
     let init: number = 0;
 
     const resultFunc = () => {
@@ -249,7 +251,7 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
     setTimeout(() => {
       if (myInterval > 0) {
         const dataValue: weatherObject = dataVal[0]
-        
+        console.log(dataValue)
         let cod: number = dataValue.resp.cod
         let codString: string = cod.toLocaleString() 
         console.log(codString)
@@ -276,6 +278,12 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
             </div>
             `;
             }
+            const resultClose: HTMLDivElement | null = document.querySelector(".resultClose")
+
+            resultClose?.addEventListener("click",() => {
+              showResultId?.classList.remove("showResult")
+              showResultId?.classList.add("hideResult")
+            })
           }
         } else {
           const humidity: number = dataValue.resp.main.humidity
@@ -283,12 +291,18 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
           const description: string = dataValue.resp.weather[0].description
           const cityName: string = dataValue.resp.name
           const countryISO: string = dataValue.resp.sys.country
+          const weatherIcON: string = dataValue.resp.weather[0].icon
+          const weatherMain: string = dataValue.resp.weather[0].main
+          const weatherFeelsLike: number = dataValue.resp.main.temp
+          const roundOff: number = Math.ceil(weatherFeelsLike)
+          
+          const iconSrc = `http://openweathermap.org/img/w/${weatherIcON}.png`
           if (showResultId) {
             showResultId.innerHTML = `
                <div class="resultHandler">
                 <div class="resultHeader">
                     <div class="placeName">
-                      <h1 class="locationName">${countryISO},${cityName}</h1>
+                     <span>Results for <h1 class="locationName">${countryISO},${cityName}</h1></span>
                   </div>
                 <div class="resultClose">
                       <span></span>
@@ -298,21 +312,18 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
               <div class="resultsDiv">
                   <div class="weatherDetails">
                       <div class="weatherLogo">
-                          <img src="" alt="" srcset="">
-                          <h1>Images</h1>
-                      </div>
-                      <div class="weatherCelcius">
-                   
+                          <img src="${iconSrc}" alt="" srcset="">
                       </div>
                       <div class="weatherWindDetails">
-                          <h5>Humidity: ${humidity}</h5>
-                          <h5>Wind: ${wKMH}</h5>
+                        <h1 class="cel">${roundOff}</h1>
+                          <h5>Humidity: ${humidity}%</h5>
+                          <h5>Wind Speed: ${wKMH}</h5>
                       </div>
                   </div>
                   <div class="weatherSecDetails">
                     <h1>Weather</h1>
-                    <h1>Friday: 4:00 PM</h1>
-                    <h1>${description}</h1>
+                    <h3>${weatherMain}</h3>
+                    <h3>${description}</h3>
                 </div>
               </div>
             </div>
@@ -323,6 +334,7 @@ if (checkWeatherBtn instanceof HTMLButtonElement) {
           resultClose?.addEventListener("click",() => {
             showResultId?.classList.remove("showResult")
             showResultId?.classList.add("hideResult")
+        
           })
         }
       } else {
